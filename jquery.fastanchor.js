@@ -17,7 +17,11 @@
     
     $(window).on('touchstart.fastanchor', function (event) {
     
-        if (event.target.tagName !== 'A') return; // Skip this element
+        var anchor = event.originalEvent.changedTouches[0].target;
+        while (anchor.tagName !== 'A') {
+            anchor = anchor.parentNode;
+        }
+        if (!anchor) return; // Skip this element
         
         var touchId = event.originalEvent.changedTouches[0].identifier,
             didScroll = false, 
@@ -36,7 +40,7 @@
         
         $(window).on('scroll.fastanchor', scrollHandler); // Start tracking scroll to prevent "click" after scroll
 
-        var $this = $(event.target).addClass('active') // Add active class
+        var $this = $(anchor).addClass('active') // Add active class
          
         $this
             .addClass('active') // Add active class
