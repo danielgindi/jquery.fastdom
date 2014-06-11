@@ -18,7 +18,7 @@
     $(window).on('touchstart.fastanchor', function (event) {
     
         var anchor = event.originalEvent.changedTouches[0].target;
-        while (anchor.tagName !== 'A') {
+        while (anchor && anchor.tagName !== 'A') {
             anchor = anchor.parentNode;
         }
         if (!anchor) return; // Skip this element
