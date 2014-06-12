@@ -4,7 +4,6 @@
 // ==/ClosureCompiler==
 /** @preserve    Library by Daniel Cohen Gindi (danielgindi@gmail.com) 054-5655765 
     MIT License!
-    Version: 2014-06-09
 */
 (function($){
         
