@@ -13,11 +13,19 @@
         }
         return null;
     }
+	
+	var acceptTagNames = {
+		'A': true,
+		'INPUT': true,
+		'LABEL': true,
+		'BUTTON': true,
+		'SELECT': true
+	};
     
-    $(window).on('touchstart.fastanchor', function (event) {
+    $(window).on('touchstart.fastdom', function (event) {
     
         var anchor = event.originalEvent.changedTouches[0].target;
-        while (anchor && anchor.tagName !== 'A') {
+        while (anchor && anchor.tagName in acceptTagNames) {
             anchor = anchor.parentNode;
         }
         if (!anchor) return; // Skip this element
@@ -32,18 +40,18 @@
         var onCancel = function () {
             $this
                 .removeClass('active') // Remove active class
-                .off('.fastanchor'); // Unhook events
+                .off('.fastdom'); // Unhook events
                 
-            $(window).off('scroll.fastanchor', scrollHandler) // Stop tracking scroll
+            $(window).off('scroll.fastdom', scrollHandler) // Stop tracking scroll
         };
         
-        $(window).on('scroll.fastanchor', scrollHandler); // Start tracking scroll to prevent "click" after scroll
+        $(window).on('scroll.fastdom', scrollHandler); // Start tracking scroll to prevent "click" after scroll
 
         var $this = $(anchor).addClass('active') // Add active class
          
         $this
             .addClass('active') // Add active class
-            .on('touchmove.fastanchor', function (event) { // Start tracking touch movement to see if we are still on top
+            .on('touchmove.fastdom', function (event) { // Start tracking touch movement to see if we are still on top
             
                 var touch = touchById(event.originalEvent.changedTouches, touchId);
                 if (!touch) return;
@@ -52,7 +60,7 @@
                 active = element && (this === element || $.contains(this, element));
                 $this.toggleClass('active', active);
                 
-            }).on('touchend.fastanchor', function (event) {
+            }).on('touchend.fastdom', function (event) {
             
                 var touch = touchById(event.originalEvent.changedTouches, touchId);
                 if (!touch) return;
@@ -64,7 +72,7 @@
                     event.preventDefault();
                 }
                 
-            }).on('touchcancel.fastanchor', onCancel);
+            }).on('touchcancel.fastdom', onCancel);
     
     });
 
