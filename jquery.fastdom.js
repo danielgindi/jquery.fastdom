@@ -24,11 +24,11 @@
     
     $(window).on('touchstart.fastdom', function (event) {
     
-        var anchor = event.originalEvent.changedTouches[0].target;
-        while (anchor && anchor.tagName in acceptTagNames) {
-            anchor = anchor.parentNode;
+        var interactive = event.originalEvent.changedTouches[0].target;
+        while (interactive && interactive.tagName in acceptTagNames) {
+            interactive = interactive.parentNode;
         }
-        if (!anchor) return; // Skip this element
+        if (!interactive || /\bfastdom-ignore\b/.test(interactive.className)) return; // Skip this element
         
         var touchId = event.originalEvent.changedTouches[0].identifier,
             didScroll = false, 
@@ -47,7 +47,7 @@
         
         $(window).on('scroll.fastdom', scrollHandler); // Start tracking scroll to prevent "click" after scroll
 
-        var $this = $(anchor).addClass('active') // Add active class
+        var $this = $(interactive).addClass('active') // Add active class
          
         $this
             .addClass('active') // Add active class
