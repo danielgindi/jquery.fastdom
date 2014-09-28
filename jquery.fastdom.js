@@ -59,7 +59,7 @@
 
                 var element = document.elementFromPoint(touch.pageX, touch.pageY);
                 active = element && (this === element || $.contains(this, element));
-                $this.toggleClass('active', active);
+                $this.toggleClass('active', !!active);
 
             }).on('touchend.fastdom', function (event) {
 
