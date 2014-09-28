@@ -69,7 +69,13 @@
                 onCancel();
 
                 if (active && !didScroll && !event.isDefaultPrevented()) {
-                    this.click(); // Trigger native event
+                    if (this.click) {
+                        this.click(); // Trigger native event
+                    } else { // Android Chrome and Android Browser are special!
+                        var clickEvent = document.createEvent('MouseEvent');
+                        clickEvent.initEvent('click', true, true);
+                        this.dispatchEvent(clickEvent);
+                    }
                     event.preventDefault();
                 }
 
