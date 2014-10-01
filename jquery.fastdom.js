@@ -25,7 +25,7 @@
     $(window).on('touchstart.fastdom', function (event) {
 
         var interactive = event.originalEvent.changedTouches[0].target;
-        while (interactive && interactive.tagName in acceptTagNames) {
+        while (interactive && !(interactive.tagName in acceptTagNames)) {
             interactive = interactive.parentNode;
         }
         if (!interactive || /\bfastdom-ignore\b/.test(interactive.className)) return; // Skip this element
