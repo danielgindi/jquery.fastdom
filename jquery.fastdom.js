@@ -16,16 +16,16 @@
 
 	var acceptTagNames = {
 		'A': true,
-		'INPUT': true,
+		//'INPUT': true, // Does not seem to work for TEXT boxes
 		'LABEL': true,
-		'BUTTON': true,
-		'SELECT': true
+		'BUTTON': true
+		//'SELECT': true // Does not seem to really work
 	};
 
     $(window).on('touchstart.fastdom', function (event) {
 
         var interactive = event.originalEvent.changedTouches[0].target;
-        while (interactive && !(interactive.tagName in acceptTagNames)) {
+        while (interactive && !((interactive.tagName in acceptTagNames) || (interactive.tagName === 'input' && /^radio|checkbox$/g.test(interactive.type)))) {
             interactive = interactive.parentNode;
         }
         if (!interactive || /\bfastdom-ignore\b/.test(interactive.className)) return; // Skip this element
