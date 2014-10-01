@@ -35,12 +35,19 @@
             scrollHandler = function () {
                 didScroll = true;
             },
-            active = true;
+            active = true,
+            ghostBuster = 0; // Some Android browsers to not support preventDefault(), we need to do catch the ghost events
 
-        var onCancel = function () {
+        var onCancel = function (event) {
             $this
                 .removeClass('active') // Remove active class
-                .off('.fastdom'); // Unhook events
+                .off('touchmove.fastdom') // Unhook touchmove
+                .off('touchend.fastdom') // Unhook touchend
+                .off('touchcancel.fastdom'); // Unhook touchcancel
+
+            if (event.type === 'touchcancel') {
+                $this.off('mousedown.fakebutton');
+            }
 
             trackedScrolling.off('scroll.fastdom', scrollHandler) // Stop tracking scroll
         };
@@ -66,7 +73,7 @@
                 var touch = touchById(event.originalEvent.changedTouches, touchId);
                 if (!touch) return;
 
-                onCancel();
+                onCancel(event);
 
                 if (active && !didScroll && !event.isDefaultPrevented()) {
                     if (this.click) {
@@ -79,7 +86,14 @@
                     event.preventDefault();
                 }
 
-            }).on('touchcancel.fastdom', onCancel);
+            }).on('touchcancel.fastdom', onCancel)
+            .on('mousedown.fastdom', function (event) {
+                if ((+new Date - ghostBuster) <= 500) { // Bust the ghost mouse events on old Android browsers
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                $this.off('mousedown.fastdom');
+            })
 
     });
 
