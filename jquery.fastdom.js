@@ -75,7 +75,7 @@
 
                 onCancel(event);
 
-                if (active && !didScroll && !event.isDefaultPrevented()) {
+                if (active && !didScroll && !event.isDefaultPrevented() && document.contains(this)) {
                     if (this.click) {
                         this.click(); // Trigger native event
                     } else { // Android Chrome and Android Browser are special!
