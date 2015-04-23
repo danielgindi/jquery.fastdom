@@ -52,7 +52,7 @@
             trackedScrolling.off('scroll.fastdom', scrollHandler) // Stop tracking scroll
         };
 
-        var $this = $(interactive).addClass('active') // Add active class
+        var $this = $(interactive);
 
         var trackedScrolling = $this.parents().add(window);
         trackedScrolling.on('scroll.fastdom', scrollHandler); // Start tracking scroll to prevent "click" after scroll
