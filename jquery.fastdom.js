@@ -28,7 +28,7 @@
         while (interactive && !((interactive.tagName in acceptTagNames) || (interactive.tagName === 'input' && /^radio|checkbox$/g.test(interactive.type)))) {
             interactive = interactive.parentNode;
         }
-        if (!interactive || /\bfastdom-ignore\b/.test(interactive.className)) return; // Skip this element
+        if (!interactive || /\bfastdom-ignore\b/.test(interactive.className) || (interactive.tagName === 'LABEL' && !this.click)) return; // Skip this element
 
         var touchId = event.originalEvent.changedTouches[0].identifier,
             didScroll = false,
