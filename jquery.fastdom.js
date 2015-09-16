@@ -70,19 +70,23 @@
 
             }).on('touchend.fastdom', function (event) {
 
+		var that = this;
+		
                 var touch = touchById(event.originalEvent.changedTouches, touchId);
                 if (!touch) return;
 
                 onCancel(event);
 
                 if (active && !didScroll && !event.isDefaultPrevented() && document.contains(this)) {
-                    if (this.click) {
-                        this.click(); // Trigger native event
-                    } else { // Android Chrome and Android Browser are special!
-                        var clickEvent = document.createEvent('MouseEvent');
-                        clickEvent.initEvent('click', true, true);
-                        this.dispatchEvent(clickEvent);
-                    }
+                    setTimeout(function () {
+                        if (that.click) {
+                            that.click(); // Trigger native event
+                        } else { // Android Chrome and Android Browser are special!
+                            var clickEvent = document.createEvent('MouseEvent');
+                            clickEvent.initEvent('click', true, true);
+                            that.dispatchEvent(clickEvent);
+                        }
+                    }, 0);
                     event.preventDefault();
                 }
 
