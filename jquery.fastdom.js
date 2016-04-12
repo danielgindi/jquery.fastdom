@@ -2,7 +2,7 @@
 // @compilation_level ADVANCED_OPTIMIZATIONS
 // @externs_url https://raw.githubusercontent.com/google/closure-compiler/master/contrib/externs/jquery-1.9.js
 // ==/ClosureCompiler==
-/** @preserve    Library by Daniel Cohen Gindi (danielgindi@gmail.com) 054-5655765
+/** @preserve    Library by Daniel Cohen Gindi (danielgindi@gmail.com)
     MIT License!
 */
 (function($){
