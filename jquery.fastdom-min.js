@@ -1,5 +1,5 @@
 /*
-    Library by Daniel Cohen Gindi (danielgindi@gmail.com) 054-5655765
+    Library by Daniel Cohen Gindi (danielgindi@gmail.com)
     MIT License!
 */
 (function(f){function h(c,b){for(var d=0;d<c.length;d++)if(c[d].identifier===b)return c[d];return null}var p={A:!0,LABEL:!0,BUTTON:!0};f(window).on("touchstart.fastdom",function(c){for(var b=c.originalEvent.changedTouches[0].target;b&&!(b.tagName in p||"input"===b.tagName&&/^radio|checkbox$/g.test(b.type));)b=b.parentNode;if(b&&!/\bfastdom-ignore\b/.test(b.className)&&("LABEL"!==b.tagName||this.click)){var d=c.originalEvent.changedTouches[0].identifier,k=!1,l=function(){k=!0},g=!0,n=function(a){e.removeClass("active").off("touchmove.fastdom").off("touchend.fastdom").off("touchcancel.fastdom").off("click.fastdom");
