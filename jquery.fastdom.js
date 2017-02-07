@@ -2,10 +2,19 @@
 // @compilation_level ADVANCED_OPTIMIZATIONS
 // @externs_url https://raw.githubusercontent.com/google/closure-compiler/master/contrib/externs/jquery-1.9.js
 // ==/ClosureCompiler==
-/** @preserve    Library by Daniel Cohen Gindi (danielgindi@gmail.com)
-    MIT License!
-*/
-(function($){
+/** @preserve jquery.fastdom
+ * git://github.com/danielgindi/jquery.fastdom.git
+ */
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define('jquery.fastdom', ['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('jquery'));
+    } else {
+        /*root.fastdom = */factory(root.jQuery);
+    }
+}(this, function ($) {
+    'use strict';
 
     function touchById(touches, touchId) {
         for (var i = 0; i < touches.length; i++) {
@@ -119,4 +128,4 @@
 
     });
 
-})(jQuery);
+}));
